@@ -11,8 +11,6 @@ class MyString {
 
     static bool containsChar(const char* array, char contained);
 
-    char* trimmed(const char* array);
-
    public:
     MyString();
 
@@ -20,11 +18,11 @@ class MyString {
 
     ~MyString();
 
-    MyString operator+(MyString const& other);
+    MyString operator+(const MyString& other);
 
     MyString& operator=(const char* s);
 
-    MyString& operator=(MyString const& other);
+    MyString& operator=(const MyString& other);
 
     void trim();
 

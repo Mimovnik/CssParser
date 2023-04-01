@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-#include "MyString.hpp"
-
 void Parser::parse() {
     while (std::cin.good()) {
         MyString input = MyString::readString(",\n");
@@ -11,7 +9,8 @@ void Parser::parse() {
         if (input.equals("????")) {
             parseCommands();
         } else {
-            // sections.add(parseSection(input));
+            Section s = parseSection(input);
+            sections.append(s);
         }
     }
 }
@@ -29,21 +28,20 @@ void Parser::parseCommands() {
     return;
 }
 
-// Section* Parser::parseSection(MyString firstInput) {
-void Parser::parseSection(MyString firstInput) {
+Section Parser::parseSection(MyString firstInput) {
     if (firstInput.equals("{")) {
         // global section
-        // return new Section(nullptr, parseAttributes());
+        return Section(nullptr, parseAttributes());
     }
 
-    // return new Section(parseSelectors(firstInput), parseAttributes());
-    return;
+    List<Selector>* selectors = parseSelectors(firstInput);
+    List<Attribute>* attributes = parseAttributes();
+    return Section(selectors, attributes);
 }
 
-// List<Selector>* Parser::parseSelectors() {
-void Parser::parseSelectors(MyString firstInput) {
-    // List<Selector>* selectors = new List<Selector>();
-    // selectors->add(new Selector(firstInput));
+List<Selector>* Parser::parseSelectors(MyString firstInput) {
+    List<Selector>* selectors = new List<Selector>();
+    selectors->append(Selector(firstInput));
     while (std::cin.good()) {
         MyString name = MyString::readString(",\n");
         name.trim();
@@ -51,14 +49,13 @@ void Parser::parseSelectors(MyString firstInput) {
             break;
         }
 
-        // selectors->add(new Selector(name));
+        selectors->append(Selector(name));
     }
-    // return selectors;
+    return selectors;
 }
 
-// List<Attribute>* Parser::parseAttributes() {
-void Parser::parseAttributes() {
-    // List<Attribute>* attributes = new List<Attributes>();
+List<Attribute>* Parser::parseAttributes() {
+    List<Attribute>* attributes = new List<Attribute>();
     while (std::cin.good()) {
         MyString property = MyString::readString(":");
         property.trim();
@@ -69,7 +66,7 @@ void Parser::parseAttributes() {
         MyString value = MyString::readString(";\n");
         value.trim();
 
-        // attributes->add(new Attribute(property, value));
+        attributes->append(Attribute(property, value));
     }
-    // return attributes;
+    return attributes;
 }

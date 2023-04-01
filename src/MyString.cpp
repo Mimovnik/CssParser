@@ -11,8 +11,6 @@ bool MyString::containsChar(const char* array, char contained) {
     return false;
 }
 
-char* MyString::trimmed(const char* array) { return nullptr; }
-
 MyString::MyString() : MyString("") {}
 
 MyString::MyString(const char* s) {
@@ -22,11 +20,17 @@ MyString::MyString(const char* s) {
     content[length] = '\0';
 }
 
-MyString::~MyString() { delete[] content; }
+MyString::~MyString() {
+    if (length > 0) {
+        delete[] content;
+    }
+    length = 0;
+}
 
-MyString MyString::operator+(MyString const& other) {
+MyString MyString::operator+(const MyString& other) {
     return MyString(strcat(this->content, other.content));
 }
+
 MyString& MyString::operator=(const char* s) {
     int sLen = strlen(s);
     if (length != sLen) {
@@ -39,7 +43,7 @@ MyString& MyString::operator=(const char* s) {
     return *this;
 }
 
-MyString& MyString::operator=(MyString const& other) {
+MyString& MyString::operator=(const MyString& other) {
     int sLen = strlen(other.content);
     if (length != sLen) {
         delete[] content;

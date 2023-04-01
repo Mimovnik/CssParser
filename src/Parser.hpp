@@ -1,16 +1,22 @@
 #pragma once
 
+#include "List.hpp"
 #include "MyString.hpp"
+#include "Section.hpp"
+#include "Selector.hpp"
+#include "Attribute.hpp"
 
 class Parser {
    private:
+    List<Section> sections;
+
     void parseCommands();
 
-    void parseSection(MyString string);
+    Section parseSection(MyString firstInput);
+    
+    List<Selector>* parseSelectors(MyString firstSelector);
 
-    void parseSelectors(MyString firstSelector);
-
-    void parseAttributes();
+    List<Attribute>* parseAttributes();
 
    public:
     void parse();
