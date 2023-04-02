@@ -2,4 +2,4 @@
 
 Selector::Selector() {}
 
-Selector::Selector(MyString name) { this->name = name; }
+Selector::Selector(String name) { this->name = name; }

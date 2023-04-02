@@ -1,13 +1,13 @@
 #pragma once
 
-#include "MyString.hpp"
+#include "String.hpp"
 
 class Selector {
    private:
-    MyString name;
+    String name;
 
    public:
     Selector();
 
-    Selector(MyString name);
+    Selector(String name);
 };

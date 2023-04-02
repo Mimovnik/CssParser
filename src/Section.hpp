@@ -13,13 +13,5 @@ class Section {
    public:
     Section();
 
-    Section(const Section& other);
-
-    Section& operator=(const Section& other);
-
-    Section(Section&& other);
-
-    Section& operator=(Section&& other);
-
     Section(List<Selector>* selectors, List<Attribute>* attributes);
 };

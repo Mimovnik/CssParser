@@ -1,15 +1,15 @@
 #pragma once
 
-#include "MyString.hpp"
+#include "String.hpp"
 
 class Attribute {
    private:
-    MyString property;
+    String property;
 
-    MyString value;
+    String value;
 
    public:
     Attribute();
 
-    Attribute(MyString property, MyString value);
+    Attribute(String property, String value);
 };

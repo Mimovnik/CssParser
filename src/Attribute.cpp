@@ -2,7 +2,7 @@
 
 Attribute::Attribute() {}
 
-Attribute::Attribute(MyString property, MyString value) {
+Attribute::Attribute(String property, String value) {
     this->property = property;
     this->value = value;
 }
