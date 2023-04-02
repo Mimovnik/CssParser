@@ -57,14 +57,29 @@ void Parser::parse() {
 void Parser::parseCommands() {
     std::cout << "Parsing commands" << std::endl;
     while (std::cin.good()) {
-        String input = String::readString("\n");
+        String input = String::readString(",\n");
         input.trim();
         if (input.equals("****")) {
             return;
+        } else if (input.equals("?")) {
+            std::cout << "? == " << sections.getSize() << std::endl;
+        } else {
+            String& firstArgument = input;
+            String secondArgument = String::readString(",");
+            String thirdArgument = String::readString("\n");
+            parseOperations(firstArgument, secondArgument, thirdArgument);
         }
-        std::cout << "Command" << std::endl;
     }
     return;
+}
+
+void Parser::parseOperations(String& firstArg, String& secondArg,
+                             String& thirdArg) {
+    if (thirdArg.equals("?")) {
+        if (secondArg.equals("S")) {
+        } else if (secondArg.equals("A")) {
+        }
+    }
 }
 
 Section Parser::parseSection(String firstInput, bool globalBlock) {

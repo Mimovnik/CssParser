@@ -11,6 +11,8 @@ class Parser {
 
     void parseCommands();
 
+    void parseOperations(String& firstArg, String& secondArg, String& thirdArg);
+
     Section parseSection(String firstInput, bool endedOnBlockStart);
 
     List<Selector>* parseSelectors(String firstSelector);
