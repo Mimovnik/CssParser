@@ -69,7 +69,7 @@ class List {
 
     int getSize() const;
 
-    T getAt(int index);
+    T& getAt(int index);
 
     void destroy();
 };
@@ -291,7 +291,7 @@ int List<T>::getSize() const {
 }
 
 template <typename T>
-T List<T>::getAt(int index) {
+T& List<T>::getAt(int index) {
     if (index < 0 || index >= getSize()) {
         throw "Trying to get element out of bound.";
     }

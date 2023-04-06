@@ -1,5 +1,7 @@
 #include "String.hpp"
 
+#include "math.h"
+
 bool String::containsChar(const char* cstring, char contained) {
     for (int i = 0; i < getLength(cstring); i++) {
         if (cstring[i] == contained) {
@@ -134,6 +136,28 @@ void String::trim() {
 }
 
 bool String::equals(const char* cstring) { return equals(content, cstring); }
+
+int String::toInt() {
+    int result = 0;
+    bool negative = false;
+
+    int i = 0;
+    if (content[0] == '-') {
+        negative = true;
+        i++;
+    }
+    for (; i < length; i++) {
+        if (content[i] < '0' || content[i] > '9') {
+            throw "Trying to parse non numerical char to int.";
+        }
+        int current = content[i] - '0';
+        result += current * pow(10, length - 1 - i);
+    }
+    if (negative) {
+        result *= -1;
+    }
+    return result;
+}
 
 String String::readString(const char* endChars, int defaultReadLength) {
     char* input = new char[defaultReadLength];

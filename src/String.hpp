@@ -28,6 +28,8 @@ class String {
 
     bool equals(const char* s);
 
+    int toInt();
+
     friend std::ostream& operator<<(std::ostream& stream, const String& str);
 
     static String readString(const char* endChars, int defaultReadLength = 64);

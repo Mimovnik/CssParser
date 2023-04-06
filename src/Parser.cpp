@@ -48,14 +48,12 @@ void Parser::parse() {
         } else if (inputString.equals("????")) {
             parseCommands();
         } else {
-            Section s = parseSection(inputString, globalBlock);
-            sections.append(s);
+            sections.append(*parseSection(inputString, globalBlock));
         }
     }
 }
 
 void Parser::parseCommands() {
-    std::cout << "Parsing commands" << std::endl;
     while (std::cin.good()) {
         String input = String::readString(",\n");
         input.trim();
@@ -66,7 +64,7 @@ void Parser::parseCommands() {
         } else {
             String& firstArgument = input;
             String secondArgument = String::readString(",");
-            String thirdArgument = String::readString("\n");
+            String thirdArgument = String::readString(",\n");
             parseOperations(firstArgument, secondArgument, thirdArgument);
         }
     }
@@ -76,20 +74,37 @@ void Parser::parseCommands() {
 void Parser::parseOperations(String& firstArg, String& secondArg,
                              String& thirdArg) {
     if (thirdArg.equals("?")) {
-        if (secondArg.equals("S")) {
-        } else if (secondArg.equals("A")) {
+        try {
+            int num = firstArg.toInt();
+            if (secondArg.equals("S")) {
+                // i,S,?
+                Section& s = sections.getAt(num - 1);
+                List<Selector>* sels = s.getSelectors();
+                int size = sels->getSize();
+                std::cout << num << ",S,? == " << size << std::endl;
+            } else if (secondArg.equals("A")) {
+                // i,A,?
+                int size = sections.getAt(num - 1).getAttributes()->getSize();
+                std::cout << num << ",A,? == " << size << std::endl;
+            }
+        } catch (const char*) {
+            if (secondArg.equals("S")) {
+                // z,S,?
+            } else if (secondArg.equals("A")) {
+                // n,A,?
+            }
         }
     }
 }
 
-Section Parser::parseSection(String firstInput, bool globalBlock) {
+Section* Parser::parseSection(String firstInput, bool globalBlock) {
     if (globalBlock) {
-        return Section(nullptr, parseAttributes());
+        return new Section(nullptr, parseAttributes());
     }
 
     List<Selector>* selectors = parseSelectors(firstInput);
     List<Attribute>* attributes = parseAttributes();
-    return Section(selectors, attributes);
+    return new Section(selectors, attributes);
 }
 
 List<Selector>* Parser::parseSelectors(String firstInput) {
